@@ -13,18 +13,17 @@ public class MainActivity extends AppCompatActivity {
     HeroAdapter mHeroAdapter;
     List<Hero> mHeros = new ArrayList<>() ;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        createData();
         mRecyclerView = findViewById(R.id.recycler_view);
-        mHeroAdapter = new HeroAdapter(this,mHeros);
+        mRecyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
+        createData();
+        mHeroAdapter = new HeroAdapter(this,mHeros);
         mRecyclerView.setAdapter(mHeroAdapter);
-
 
     }
 
@@ -40,6 +39,4 @@ public class MainActivity extends AppCompatActivity {
         mHeroAdapter.notifyDataSetChanged();
 
     }
-
-
 }

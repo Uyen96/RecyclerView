@@ -19,27 +19,11 @@ public class HeroAdapter extends RecyclerView.Adapter<HeroAdapter.MyViewHolder> 
     private LayoutInflater mLayoutInflater;
     private Context mContext;
 
-
-
     public HeroAdapter(Context context, List<Hero> mHeros) {
         this.mHeros = mHeros;
         this.mContext = context;
         mLayoutInflater = LayoutInflater.from(context);
     }
-
-
-    public class MyViewHolder extends  RecyclerView.ViewHolder   {
-        public TextView mTextName;
-        public ImageView mImage;
-
-
-        public MyViewHolder(View itemView) {
-            super(itemView);
-            mTextName = itemView.findViewById(R.id.text_name);
-            mImage = itemView.findViewById(R.id.image);
-        }
-    }
-
 
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -50,13 +34,30 @@ public class HeroAdapter extends RecyclerView.Adapter<HeroAdapter.MyViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
-            Hero hero =    mHeros.get(i);
-            myViewHolder.mImage.setImageResource(hero.getmImage());
-            myViewHolder.mTextName.setText(hero.getmName());
+        myViewHolder.bindData(mHeros.get(i));
     }
 
     @Override
     public int getItemCount() {
-        return mHeros.size();
+        if(mHeros != null) return mHeros.size();
+        else return 0;
+
     }
+
+    public class MyViewHolder extends  RecyclerView.ViewHolder   {
+        public TextView mTextName;
+        public ImageView mImage;
+
+        public MyViewHolder(View itemView) {
+            super(itemView);
+            mTextName = itemView.findViewById(R.id.text_name);
+            mImage = itemView.findViewById(R.id.image);
+        }
+
+        public void bindData(Hero hero) {
+            mImage.setImageResource(hero.getmImage());
+            mTextName.setText(hero.getmName());
+        }
+    }
+
 }
